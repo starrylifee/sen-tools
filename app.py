@@ -22,8 +22,8 @@ hide_github_icon = """
     </style>
 """
 
-# secrets.toml 파일 경로
-secrets_path = pathlib.Path(__file__).parent.parent / ".streamlit/secrets.toml"
+# 현재 파일의 디렉토리 경로를 기반으로 secrets.toml 파일 경로 설정
+secrets_path = pathlib.Path(__file__).parent / ".streamlit" / "secrets.toml"
 
 # secrets.toml 파일 읽기
 with open(secrets_path, "r") as f:
