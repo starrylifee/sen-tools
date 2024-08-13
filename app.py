@@ -22,15 +22,23 @@ hide_github_icon = """
     </style>
 """
 
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 # 현재 파일의 디렉토리 경로를 기반으로 secrets.toml 파일 경로 설정
 secrets_path = pathlib.Path(__file__).parent / ".streamlit" / "secrets.toml"
 
 # secrets.toml 파일 읽기
-with open(secrets_path, "r") as f:
-    secrets = toml.load(f)
+try:
+    with open(secrets_path, "r") as f:
+        secrets = toml.load(f)
+except FileNotFoundError:
+    st.error(f"Secrets file not found at {secrets_path}. Please ensure the file exists.")
+    secrets = {}
 
 # OpenAI API 키 로드
 openai_api_key = secrets.get("OPENAI_API_KEY")
+if not openai_api_key:
+    st.error("OpenAI API key is missing. Please ensure it is set in the secrets.toml file.")
 
 # JSON 파일 경로
 json_file_path = pathlib.Path(__file__).parent / "training_data.json"
@@ -74,7 +82,13 @@ generate_btn = st.button("✨ 생성하기")
 @st.cache_resource(show_spinner="업로드한 파일을 처리 중입니다...")
 def process_uploaded_file(file):
     file_content = file.read()
-    file_path = f"./.cache/files/{file.name}"
+    
+    # 파일을 저장할 경로 생성
+    file_cache_dir = pathlib.Path("./.cache/files")
+    file_cache_dir.mkdir(parents=True, exist_ok=True)  # 디렉토리 생성, 존재하지 않으면
+
+    file_path = file_cache_dir / file.name
+
     with open(file_path, "wb") as f:
         f.write(file_content)
 
