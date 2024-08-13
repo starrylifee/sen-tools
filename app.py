@@ -145,7 +145,7 @@ def create_chain(content_option, level_option, uploaded_file_content):
     prompt = f"""
     연수 계획서에 기초한 디지털 배지 설명과 발급 조건을 제시하세요.
     
-    디지털 배지 설명: {uploaded_file_content}속 내용을 주제: {content_option}, 단계: {level_option}, 단계 설명: {stage_description}, 내용 요소: {"; ".join(content_items)}로 해석해서 발급할 디지털 배지 설명 내용을 200자로 출력
+    디지털 배지 설명: {uploaded_file_content}속 내용을 사용자가 선택한 주제: {content_option}, 단계: {level_option}, 단계 설명: {stage_description}, 내용 요소: {"; ".join(content_items)}로 해석해서 발급할 디지털 배지 설명 내용을 200자로 출력
     
     배지 발급 조건: 연수과정명, 연수기간, 연수장소, 연수주관기관, 이수 시간 등 {uploaded_file_content}에서 추출한 정보를 200자로 출력
     """
