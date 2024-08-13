@@ -1,8 +1,5 @@
 streamlit
-langchain-core
 langchain-openai
 langchain-teddynote
 langchain-community
-pdfplumber
-openai
-python-dotenv
+faiss-cpu
